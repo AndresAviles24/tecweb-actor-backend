@@ -4,7 +4,7 @@
 
 Para correr este proyecto debe tener instalado:
 
-    -
+    - Docker
     -
 
 # Instalación de la Base de Datos
