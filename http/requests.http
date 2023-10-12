@@ -2,24 +2,24 @@
 GET http://localhost:3000/actors
 
 ### Obtener actor con ID determinada
-GET http://localhost:3000/actors/1
+GET http://localhost:3000/actors/204
 
 ### Crear un nuevo actor
 POST http://localhost:3000/actors
 Content-Type: application/json
 
 {
-  "first_name": "John",
-  "last_name": "Doe"
+  "first_name": 1234,
+  "last_name": 5678
 }
 
 ### Actualizar actor con su ID
-PUT http://localhost:3000/actors/1
+PUT http://localhost:3000/actors/204
 Content-Type: application/json
 
 {
-  "first_name": "Jane",
-  "last_name": "Doe"
+  "first_name": 4321,
+  "last_name": 8765
 }
 
 ### Eliminar actor con su ID
