@@ -21,19 +21,26 @@ docker run --name mysql -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d mysql:8
 docker exec -it mysql mysql -u root -p
 ```
 
-3. Creamos la Base de Datos del ATM.
+3. Creamos la Base de Datos para actores.
 
 ```
 CREATE DATABASE sakila;
 ```
 
-4. Creamos la Base de Datos del ATM.
+4. Seleccionamos la Base de Datos de los actores
 
 ```
 use sakila;
 ```
-5. Acceder a la carpeta db. 
+5. Ejecutamos el siguiente query para evitar problemas de permisos con MySQL
 
-6. Ejecutar el script database.sql para crear la tabla actor.
+```
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '12345' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
 
-7. Ejecutar el script data.sql para insertar los datos a dicha tabla.
+6. Acceder a la carpeta db. 
+
+7. Ejecutar el script database.sql para crear la tabla actor.
+
+8. Ejecutar el script data.sql para insertar los datos a dicha tabla.
