@@ -1,14 +1,19 @@
 const db = require('../db/connection');
 
-// Obtener todos los actores
+// * Obtener todos los actores (Con la paginacion agregada).
 exports.getAllActors = async (req, res) => {
+    const page = parseInt(req.query.page) || 1; // Número de página
+    const limit = parseInt(req.query.limit) || 10; // Cantidad de registros por página
+    const offset = (page - 1) * limit; // Calcula el desplazamiento
+
     try {
-        const [actors] = await db.query('SELECT * FROM actor');
+        const [actors] = await db.query('SELECT * FROM actor LIMIT ?, ?', [offset, limit]);
         res.json(actors);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 // Obtener un actor por ID
 exports.getActorById = async (req, res) => {
@@ -43,7 +48,7 @@ exports.createActor = async (req, res) => {
 exports.updateActor = async (req, res) => {
     const actorId = req.params.id;
     const { first_name, last_name } = req.body;
-    
+
     // *Verificar que la insercion tenga solo letras
     if (!isValidName(first_name) || !isValidName(last_name)) {
         return res.status(400).json({ message: 'Los nombres deben contener solo letras mayúsculas y minúsculas.' });

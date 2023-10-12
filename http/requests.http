@@ -1,4 +1,4 @@
-### Obtener todos los actores
+### Obtener todos los actores (Con paginacion incluida)
 GET http://localhost:3000/actors
 
 ### Obtener actor con ID determinada
