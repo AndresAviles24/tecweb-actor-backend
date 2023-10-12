@@ -5,7 +5,14 @@
 Para correr este proyecto debe tener instalado:
 
     - Docker
-    -
+    - Node.js
+    
+## RECOMENDACIONES
+
+Para facilitar el manejo de las solicitudes HTTP en VSCode usar la extension "REST Client", que permite ejecutar las solicitudes desde el archivo:
+```
+ http/requests.http
+ ```
 
 # Instalación de la Base de Datos
 
