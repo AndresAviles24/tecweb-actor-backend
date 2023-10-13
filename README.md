@@ -51,3 +51,7 @@ FLUSH PRIVILEGES;
 7. Ejecutar el script database.sql para crear la tabla actor.
 
 8. Ejecutar el script data.sql para insertar los datos a dicha tabla.
+
+# Ejecutar solicitudes HTTP
+
+Todos los formatos para las solicitudes se encuentran en http/requests, y su documentacion se encuentra en documentacion.txt

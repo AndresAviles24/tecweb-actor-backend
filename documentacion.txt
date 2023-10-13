@@ -1,0 +1,205 @@
+DOCUMENTACION DE LAS APIs del proyecto
+
+-Los controladores de las APIs se encuentran en la direccion: controllers/actorsController.js
+-La estructura de las APIs se encuentran en http/requests.http
+
+Dentro de este documento, se hizo uso de Express.js para el control de las APIs que interactuan con la base de datos.
+
+Las APIs creadas son las siguientes:
+ 
+ - SOLICITUD GET:
+
+    La solicitud completa tendria la siguiente estructura:
+
+    http://localhost:3000/actors?page={numero_pagina}&limit={limite_datos}
+
+    Lo que mostrara la cantidad especificada de autores en una determinada pagina.
+
+    Si el usuario introduciera el URL sin estas especificaciones, de esta manera:
+
+    http://localhost:3000/actors
+
+    La solicitud devolvera los 10 primeros, como si se hubiera hecho esta solicitud:
+
+    http://localhost:3000/actors?page=1&limit=10
+
+    Es controlada por getAllActors en actorsController.js
+
+    La respuesta esperada en el ultimo caso mencionadoseria la siguiente:
+
+        HTTP/1.1 200 OK
+        X-Powered-By: Express
+        Content-Type: application/json; charset=utf-8
+        Content-Length: 1017
+        ETag: W/"3f9-y2OzIckEsSwPUgkRH/nULirWzR0"
+        Date: Fri, 13 Oct 2023 02:08:37 GMT
+        Connection: close
+
+        [
+        {
+            "actor_id": 1,
+            "first_name": "PENELOPE",
+            "last_name": "GUINESS",
+            "last_update": "2006-02-15T08:34:33.000Z"
+        },
+        {
+            "actor_id": 2,
+            "first_name": "NICK",
+            "last_name": "WAHLBERG",
+            "last_update": "2006-02-15T08:34:33.000Z"
+        },
+        {
+            "actor_id": 3,
+            "first_name": "ED",
+            "last_name": "CHASE",
+            "last_update": "2006-02-15T08:34:33.000Z"
+        },
+        {
+            "actor_id": 4,
+            "first_name": "JENNIFER",
+            "last_name": "DAVIS",
+            "last_update": "2006-02-15T08:34:33.000Z"
+        },
+        {
+            "actor_id": 5,
+            "first_name": "JOHNNY",
+            "last_name": "LOLLOBRIGIDA",
+            "last_update": "2006-02-15T08:34:33.000Z"
+        },
+        {
+            "actor_id": 6,
+            "first_name": "BETTE",
+            "last_name": "NICHOLSON",
+            "last_update": "2006-02-15T08:34:33.000Z"
+        },
+        {
+            "actor_id": 7,
+            "first_name": "GRACINSERT INTO actorE",
+            "last_name": "MOSTEL",
+            "last_update": "2006-02-15T08:34:33.000Z"
+        },
+        {
+            "actor_id": 8,
+            "first_name": "MATTHEW",
+            "last_name": "JOHANSSON",
+            "last_update": "2006-02-15T08:34:33.000Z"
+        },
+        {
+            "actor_id": 9,
+            "first_name": "JOE",
+            "last_name": "SWANK",
+            "last_update": "2006-02-15T08:34:33.000Z"
+        },
+        {
+            "actor_id": 10,
+            "first_name": "CHRISTIAN",
+            "last_name": "GABLE",
+            "last_update": "2006-02-15T08:34:33.000Z"
+        }
+        ]
+
+    
+ - SOLICITUD GET con ID de actor:
+    
+    GET http://localhost:3000/actors/{actor_id}
+
+    Esta solicitud  obtiene el usuario especifico solicitado por medio de su id de la base de datos, por lo que es encesario conocer el ID del usuario.
+
+    Es controlada por getActorById en actorsController.js
+
+    La respuesta esperada es (ejemplo usando el id=4):
+
+        HTTP/1.1 200 OK
+        X-Powered-By: Express
+        Content-Type: application/json; charset=utf-8
+        Content-Length: 99
+        ETag: W/"63-6K6t0fsdPXtM1cix5+i2YQxD0kc"
+        Date: Fri, 13 Oct 2023 02:16:26 GMT
+        Connection: close
+
+        {
+        "actor_id": 4,
+        "first_name": "JENNIFER",
+        "last_name": "DAVIS",
+        "last_update": "2006-02-15T08:34:33.000Z"
+        }
+
+
+- SOLICITUD POST: 
+
+    POST http://localhost:3000/actors
+    Content-Type: application/json
+
+    {
+    "first_name": "{nombre}",
+    "last_name": "{apellido}"
+    }
+
+    Por medio de esta solicitud estamos intentando agregar un nuevo usuario a la tabla actors de la base de datos, con formato de archivo .json. 
+    para ello necesitamos agregar un nombre y un apellido como se ve en el formato de la solicitud arriba. En caso de que el usuario intente enviar 
+    caracteres obtendra una respuesta de error que no agregara el dato en la base de datos.
+
+    Es controlada por getAllActors en actorsController.js
+
+    La respuesta esperada es:
+
+        HTTP/1.1 201 Created
+        X-Powered-By: Express
+        Content-Type: application/json; charset=utf-8
+        Content-Length: 15
+        ETag: W/"f-t+cFMBq2NI2tXAV1Xb8VjFdViVg"
+        Date: Fri, 13 Oct 2023 02:23:38 GMT
+        Connection: close
+
+        {
+        "actorId": 201
+        }
+
+- SOLICITUD PUT:
+
+    PUT http://localhost:3000/actors/{actor_id}
+    Content-Type: application/json
+
+    {
+    "first_name": "Jane",
+    "last_name": "Doe"
+    }
+
+    La solicitud PUT es usada para modificar un actor ya existente, introduciendo los nuevos datos que se desea que este tenga. La estructura del contenido 
+    en formato json es la misma que en la solicitud POST. la diferencia viene en el link, que despues de /actors se necesita especificar el id del actor
+    que buscamos modificar, en caso de que este sea encontrado en la base de datos.
+
+    Es controlada por updateActor en actorsController.js
+
+    La respuesta esperada es:
+
+        HTTP/1.1 204 No Content
+        X-Powered-By: Express
+        Date: Fri, 13 Oct 2023 02:26:25 GMT
+        Connection: close
+
+
+- SOLICITUD DELETE:
+
+    DELETE http://localhost:3000/actors/{actor_id}
+
+    Lo unico que necesita esta solicitud es el id del actor deseado. Una vez hecho esto, se encargara de buscar si existe este usuario, y en el caso de que
+    si exista, sera eliminado por completo de la base de datos.
+
+    Es controlada por deleteActor en actorsController.js
+
+    La respuesta esperada es:
+    
+
+        HTTP/1.1 204 No Content
+        X-Powered-By: Express
+        Date: Fri, 13 Oct 2023 02:26:58 GMT
+        Connection: close
+
+
+
+
+
+
+
+
